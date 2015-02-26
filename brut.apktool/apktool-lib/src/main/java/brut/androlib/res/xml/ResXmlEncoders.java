@@ -28,7 +28,27 @@ import java.util.List;
 public final class ResXmlEncoders {
 
     public static String escapeXmlChars(String str) {
-        return str.replace("&", "&amp;").replace("<", "&lt;");
+        if (str.isEmpty()) return str;
+
+        String val = str.replace("<", "&lt;");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int x = 0;
+        for (char character : val.toCharArray()) {
+            stringBuilder.append(character);
+            ++x;
+
+            // strings that end in & are not accepted
+            if (x >= val.length()) break;
+
+            if (character == '&') {
+                if (! (val.charAt(x) == 'l')) {
+                    stringBuilder.append("amp;");
+                }
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
     public static String encodeAsResXmlAttr(String str) {
