@@ -591,7 +591,7 @@ public class Androlib {
             // already have in the zip. thus /var/files/apktool/apk/unknown/folder/file => /folder/file
             Path dest = fs.getPath(root.toString(), insert.getAbsolutePath().replace(location.toString(),""));
             Path newFile = Paths.get(insert.getAbsolutePath());
-            Files.copy(newFile,dest, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(newFile, dest, StandardCopyOption.COPY_ATTRIBUTES);
             fs.close();
         }
     }
